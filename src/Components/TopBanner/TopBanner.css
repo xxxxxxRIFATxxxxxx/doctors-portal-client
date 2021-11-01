@@ -1,0 +1,10 @@
+.top-banner .top-banner-img {
+    width: 100%;
+}
+
+.top-banner {
+    background-image: url("https://i.ibb.co/jZw8gpc/bg.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: left;
+}
