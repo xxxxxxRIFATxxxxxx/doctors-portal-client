@@ -1,32 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Appointment.css';
 import 'react-calendar/dist/Calendar.css';
-import { Container } from 'react-bootstrap';
+import { Container, Spinner } from 'react-bootstrap';
 import Calendar from 'react-calendar';
+import Service from '../Service/Service';
 
 const Appointment = () => {
-    const [value, onChange] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [services, setServices] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        fetch('./Appointment.json')
+            .then(res => res.json())
+            .then(data => {
+                setServices(data);
+                setIsLoading(false);
+            });
+    }, [selectedDate]);
 
     return (
-        <div className="appointment">
+        <div className="appointment mb-5">
             <div className="appointment-bg mb-5">
                 <Container>
-                    <div className="row row-cols-1 row-cols-lg-2">
+                    <div className="row row-cols-1 row-cols-lg-2 g-4">
                         <div className="col">
-                            <h2 className="text-info">Appointment</h2>
+                            <h2 className="text-info appointment-title">Appointment</h2>
 
                             <div className="mt-4">
                                 <Calendar
                                     className="border-0 box-shadow border-radius"
                                     next2Label={null}
                                     prev2Label={null}
-                                    onChange={onChange}
-                                    value={value}
+                                    onChange={setSelectedDate}
+                                    value={selectedDate}
                                 />
                             </div>
                         </div>
 
-                        <div className="col">
+                        <div className="col text-center">
                             <img className="img-fluid" src="https://i.ibb.co/sgC89nC/chair.png" alt="Doctors Chamber" />
                         </div>
                     </div>
@@ -36,142 +48,17 @@ const Appointment = () => {
             <div>
                 <Container>
                     <h4 className="text-info text-center mb-5">
-                        Available Appointments on {value.toDateString()}
+                        Available Appointments on {selectedDate.toDateString()}
                     </h4>
 
-                    <div className="row row-cols-1 row-cols-md-3 g-4">
-                        {/* Service */}
-                        <div className="col">
-                            <div className="card h-100 border-info">
-                                <div className="card-body text-center">
-                                    <h5 className="card-title text-info">
-                                        Teeth Orthodontics
-                                    </h5>
+                    <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                        {isLoading ? <Spinner className="mx-auto" animation="border" variant="info" /> : null}
 
-                                    <h6 className="card-text mb-1">
-                                        8:00 AM - 9:00 AM
-                                    </h6>
-
-                                    <p className="text-muted small-text">
-                                        10 SPACES AVAILABLE
-                                    </p>
-
-                                    <button className="btn btn-info text-white rounded-0 fw-bold">
-                                        BOOK APPOINTMENT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card h-100 border-info">
-                                <div className="card-body text-center">
-                                    <h5 className="card-title text-info">
-                                        Cosmetic Dentistry
-                                    </h5>
-
-                                    <h6 className="card-text mb-1">
-                                        10:00 AM - 11:30 AM
-                                    </h6>
-
-                                    <p className="text-muted small-text">
-                                        10 SPACES AVAILABLE
-                                    </p>
-
-                                    <button className="btn btn-info text-white rounded-0 fw-bold">
-                                        BOOK APPOINTMENT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card h-100 border-info">
-                                <div className="card-body text-center">
-                                    <h5 className="card-title text-info">
-                                        Teeth Cleaning
-                                    </h5>
-
-                                    <h6 className="card-text mb-1">
-                                        5:00 PM - 6:30 PM
-                                    </h6>
-
-                                    <p className="text-muted small-text">
-                                        10 SPACES AVAILABLE
-                                    </p>
-
-                                    <button className="btn btn-info text-white rounded-0 fw-bold">
-                                        BOOK APPOINTMENT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card h-100 border-info">
-                                <div className="card-body text-center">
-                                    <h5 className="card-title text-info">
-                                        Cavity Protection
-                                    </h5>
-
-                                    <h6 className="card-text mb-1">
-                                        7:00 AM - 8:30 AM
-                                    </h6>
-
-                                    <p className="text-muted small-text">
-                                        10 SPACES AVAILABLE
-                                    </p>
-
-                                    <button className="btn btn-info text-white rounded-0 fw-bold">
-                                        BOOK APPOINTMENT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card h-100 border-info">
-                                <div className="card-body text-center">
-                                    <h5 className="card-title text-info">
-                                        Teeth Orthodontics
-                                    </h5>
-
-                                    <h6 className="card-text mb-1">
-                                        8:00 AM - 9:00 AM
-                                    </h6>
-
-                                    <p className="text-muted small-text">
-                                        10 SPACES AVAILABLE
-                                    </p>
-
-                                    <button className="btn btn-info text-white rounded-0 fw-bold">
-                                        BOOK APPOINTMENT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="col">
-                            <div className="card h-100 border-info">
-                                <div className="card-body text-center">
-                                    <h5 className="card-title text-info">
-                                        Cosmetic Dentistry
-                                    </h5>
-
-                                    <h6 className="card-text mb-1">
-                                        10:00 AM - 11:30 AM
-                                    </h6>
-
-                                    <p className="text-muted small-text">
-                                        10 SPACES AVAILABLE
-                                    </p>
-
-                                    <button className="btn btn-info text-white rounded-0 fw-bold">
-                                        BOOK APPOINTMENT
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        {services.map(service => <Service
+                            selectedDate={selectedDate}
+                            key={service._id}
+                            service={service}>
+                        </Service>)}
                     </div>
                 </Container>
             </div>

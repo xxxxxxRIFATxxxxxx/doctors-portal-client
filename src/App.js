@@ -10,6 +10,7 @@ import {
 import Home from './Components/Home/Home';
 import NavigationBar from './Components/NavigationBar/NavigationBar';
 import Appointment from './Components/Appointment/Appointment';
+import Dashboard from './Components/Dashboard/Dashboard';
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
 
         <Route exact path="/appointment">
           <Appointment />
+        </Route>
+
+        <Route exact path="/dashboard">
+          <Dashboard />
         </Route>
       </Switch>
     </Router>

@@ -1,0 +1,38 @@
+[
+    {
+        "_id": 1,
+        "title": "Teeth Orthodontics",
+        "time": "8:00 AM - 9:00 AM",
+        "space": 10
+    },
+    {
+        "_id": 2,
+        "title": "Cosmetic Dentistry",
+        "time": "10:00 AM - 11:30 AM",
+        "space": 10
+    },
+    {
+        "_id": 3,
+        "title": "Teeth Cleaning",
+        "time": "5:00 PM - 6:30 PM",
+        "space": 10
+    },
+    {
+        "_id": 4,
+        "title": "Cavity Protection",
+        "time": "7:00 AM - 8:30 AM",
+        "space": 10
+    },
+    {
+        "_id": 5,
+        "title": "Teeth Orthodontics",
+        "time": "8:00 AM - 9:00 AM",
+        "space": 10
+    },
+    {
+        "_id": 6,
+        "title": "Cosmetic Dentistry",
+        "time": "10:00 AM - 11:30 AM",
+        "space": 10
+    }
+]
