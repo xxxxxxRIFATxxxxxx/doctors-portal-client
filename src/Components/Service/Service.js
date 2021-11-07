@@ -2,18 +2,22 @@ import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { useForm } from "react-hook-form";
 import { useHistory } from 'react-router-dom';
+import useAuth from '../../Hooks/useAuth';
 import './Service.css';
 
 const Service = props => {
     const { title, time, space } = props.service;
+    const date = props.selectedDate;
     const history = useHistory();
+    const { user } = useAuth();
 
     // For Form
     const { register, handleSubmit, reset } = useForm();
     const onSubmit = data => {
         data.serviceName = title;
+        console.log(data);
 
-        fetch("https://jsonplaceholder.typicode.com/posts", {
+        fetch("http://localhost:5000/appointments", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,7 +27,7 @@ const Service = props => {
             .then(res => res.json())
             .then(result => {
                 if (result.insertedId) {
-                    history.push('/dashboard');
+                    history.push('/myAppointments');
                     reset();
                     handleClose();
                 };
@@ -31,13 +35,7 @@ const Service = props => {
     };
 
     // For Date
-    const dateObj = props.selectedDate;
-    let getDate = dateObj.getDate();
 
-    if (getDate.toString().length < 2) {
-        getDate = `0${dateObj.getDate()}`;
-    };
-    const date = `${dateObj.getFullYear()}-${dateObj.getMonth() + 1}-${getDate}`;
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -93,7 +91,9 @@ const Service = props => {
                                 type="text"
                                 className="form-control"
                                 placeholder="Your Name"
+                                value={user.displayName}
                                 {...register("name", { required: true })}
+                                readOnly
                             />
                         </div>
 
@@ -111,20 +111,21 @@ const Service = props => {
                                 type="email"
                                 className="form-control"
                                 placeholder="example@email.com"
+                                value={user.email}
                                 {...register("email", { required: true })}
+                                readOnly
                             />
                         </div>
 
                         <div>
                             <input
-                                type="date"
+                                type="text"
                                 className="form-control"
-                                defaultValue={date}
+                                value={date}
                                 {...register("date", { required: true })}
                                 readOnly
                             />
                         </div>
-
                     </Modal.Body>
 
                     <Modal.Footer className="border-0">

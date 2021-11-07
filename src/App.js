@@ -8,25 +8,28 @@ import {
 } from "react-router-dom";
 
 import Home from './Components/Home/Home';
-import NavigationBar from './Components/NavigationBar/NavigationBar';
 import Appointment from './Components/Appointment/Appointment';
 import Dashboard from './Components/Dashboard/Dashboard';
 import AuthProvider from './Context/AuthProvider';
 import Login from './Components/Login/Login';
+import MyAppointments from './MyAppointments/MyAppointments';
+import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <NavigationBar />
-
         <Switch>
           <Route exact path="/">
             <Home />
           </Route>
 
-          <Route exact path="/appointment">
+          <PrivateRoute exact path="/appointment">
             <Appointment />
+          </PrivateRoute>
+
+          <Route exact path="/myAppointments">
+            <MyAppointments />
           </Route>
 
           <Route exact path="/dashboard">
