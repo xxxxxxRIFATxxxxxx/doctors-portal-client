@@ -2,12 +2,17 @@ import React from 'react';
 import { useHistory, useLocation } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../../Hooks/useAuth';
+import { useForm } from "react-hook-form";
 import './Login.css';
 
 const Login = () => {
     const { user, loginWithGoogle, loginWithEmail, signUpWithEmail, logout } = useAuth();
     const history = useHistory();
     const location = useLocation();
+    const { register, handleSubmit, reset } = useForm();
+    const onSubmit = data => {
+        loginWithEmail(data.email, data.password, history, location);
+    };
 
     return (
         // <div>
